@@ -28,7 +28,7 @@
 把整个 `deepseek-animation/` 目录复制进你的技能目录即可，包内全是相对路径、不依赖本机绝对路径：
 
 ```sh
-git clone https://github.com/<your-account>/deepseek-animation.git
+git clone https://github.com/WoyouWoyou/deepseek-animation.git
 cp -r deepseek-animation ~/.dsh/skills/    # 按你的技能目录位置调整
 ```
 
