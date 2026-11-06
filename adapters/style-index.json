@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "library_version": "4a96742d3643538227c849a593380f25b66f001f613ed2915dd20f3dfd216f5a",
+  "library_version": "bab1f01205f16475b14611a005d4c6f73ad3bf96c74d3965be4325df4ae42c2a",
   "prompt_count": 341,
   "entries": [
     {
@@ -3071,26 +3071,8 @@
       "sha256": "b12952febf66a08c0dc426097b8d312cd5e4411bc2375ee5933e1055cc919cd9",
       "bytes": 197,
       "lines": 8
-    },
-    {
-      "id": "B6",
-      "name": "光速穿梭·爆炸·重聚_同一份提示词",
-      "kind": "example",
-      "path": "示例/B6_光速穿梭·爆炸·重聚_同一份提示词/提示词.md",
-      "sha256": "7c4356b4a72cd16b6df892cf644929f596c199061a9b07dab3428cc7f38d00f9",
-      "bytes": 9029,
-      "lines": 95
-    },
-    {
-      "id": "X7",
-      "name": "英雄漫画_只给一句话",
-      "kind": "example",
-      "path": "示例/X7_英雄漫画_只给一句话/提示词.md",
-      "sha256": "f7f14a49374d6d1bfc16c6dd643826d47895359f196ce1c53f8e2b92a44f5662",
-      "bytes": 534,
-      "lines": 7
     }
   ],
-  "content_included": false,
+  "content_included": true,
   "search_is_semantic_judgment": false
 }

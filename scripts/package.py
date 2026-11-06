@@ -77,7 +77,7 @@ def main():
             if target == path:
                 continue
             arc = prefix + rel.as_posix()
-            if bundled and rel.parts[0] == '风格提示词':
+            if path.suffix.lower() in ('.jpg', '.jpeg', '.png', '.webp'):
                 zf.write(path, arc, compress_type=zipfile.ZIP_STORED)
             else:
                 zf.write(path, arc)

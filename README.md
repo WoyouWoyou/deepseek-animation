@@ -21,14 +21,15 @@
 | `examples/` | 7 个完整任务卡与演练 |
 | `scripts/` | `doctor.py` 自检、`style_library.py` 风格库索引、`package.py` 打包、`validate_task.py` 任务卡校验、`glyph_outline.py` 字形轮廓 |
 | `tests/` | 逻辑、Canvas 契约、任务卡契约测试 |
-| `LICENSES/` | 第三方来源与许可 |
+| `风格提示词/` | 341 种画风提示词原文，其中 193 种带同名静帧 `jpg` |
+| `LICENSES/` | 第三方来源与许可；`LICENSES/风格库/` 记原库的说明、来源与三方许可 |
 
 ## 两种发布包
 
 | 包 | 内容 | 适用 |
 | --- | --- | --- |
-| `deepseek-animation-<版本>-bundled.zip` | 技能 + `风格提示词/` 341 条原文 | 开箱即用，不依赖外部路径 |
-| `deepseek-animation-<版本>-index-only.zip` | 技能 + 索引快照，不含原文 | 已有自己的一份库，或受分发授权限制 |
+| `deepseek-animation-<版本>-bundled.zip` | 技能 + `风格提示词/` 341 条原文与 193 张静帧（约 14 MB） | 开箱即用，不依赖外部路径 |
+| `deepseek-animation-<版本>-index-only.zip` | 技能 + 索引快照，不含原文（约 0.3 MB） | 已有自己的一份库，或受分发授权限制 |
 
 两种包解压后目录结构相同；`bundled` 包里的 `风格提示词/` 会被自动识别为库根，`index-only` 包则需要指定 `--root`。
 

@@ -46,7 +46,7 @@ python scripts/style_library.py selection --selection-file 作者风格清单.tx
 # 1. 浏览目录：每条带分类、长什么样、适合讲什么、关键词
 python scripts/style_library.py list --category L_
 python scripts/style_library.py list --category 卡通
-python scripts/style_library.py list            # 全部 343 条，输出较长
+python scripts/style_library.py list            # 全部条目（本包 341 条），输出较长
 # 2. 词面检索作补充
 python scripts/style_library.py search --query "工程 纸 制图"
 # 3. 对 2–4 个候选逐个 get 读完整原文，再按全文含义判断
@@ -67,18 +67,18 @@ python scripts/style_library.py get --query 蓝图
 | O_奥斯卡98部 | 98 | 按电影美术提炼的画面风格，含年代与媒介特征 |
 | R_照参考学来的 | 7 | 照参考作品学来的方法 |
 | V_mg-styles-15 | 15 | MG 动画风格 |
-| X_code-video | 31 | 代码视频风格，X7 另有一句话示例 |
+| X_code-video | 31 | 代码视频风格，X7 另有一句话示例（需库带 `示例/`） |
 | Z_中国风 | 15 | 中国风 |
-| 示例 | 2 | B6、X7 的示例记录，不属于正式编号集合 |
+| 示例 | 0（本包） | 库根带 `示例/` 时，B6、X7 各多一条示例记录；本包不含 |
 
-“341”是观察到的正式条目数，不是上限。条目粒度不同：有的只是配色版式，有的包含完整运动方法，不是 341 个同粒度、互斥的模板。
+“341”是观察到的正式条目数，不是上限。条目粒度不同：有的只是配色版式，有的包含完整运动方法，不是 341 个同粒度、互斥的模板。193 种带同名 `.jpg` 静帧。
 
 ## 必须注意的特殊情况
 
-- **同名歧义**：X7 在正式和示例中各有一条。不指定 `--kind` 会报 `AMBIGUOUS_STYLE`，正式条目用 `--kind prompt`。
-- **只在示例中**：B6 只有示例记录（12 秒单 Canvas 高能片头方案），不在正式编号集合里。
+- **同名歧义**：库带 `示例/` 时，X7 在正式和示例中各有一条。不指定 `--kind` 会报 `AMBIGUOUS_STYLE`，正式条目用 `--kind prompt`。
+- **只在示例中**：库带 `示例/` 时，B6 只有示例记录（12 秒单 Canvas 高能片头方案），不在正式编号集合里；本包无此条目。
 - **缺依赖**：L36 等 Lemo 条目引用 DEMO.md、paper.js、draw.js、sheet.js、film.js，分享库里并不齐全。`--audit-dependencies` 会列出字面路径的候选，但始终返回 `dependency_audit_complete=false`：Markdown 正文、动态 import、资源加载需要人工核。缺了就写进任务卡的缺项，并说明是独立实现还是去原 Lemo 仓定位，不能悄悄换成普通网格。
-- **分享 HTML**：`风格挑选.html` 不含所有条目的全文，只能浏览，不能当原文。
+- **分享 HTML**：`风格挑选.html` 不含所有条目的全文，只能浏览，不能当原文；本包未附带该文件。
 - **版本**：库版本是所有相对路径加内容 SHA 的聚合 SHA。源文件改了，`get` 会拒绝旧索引，审阅变更后重新 `build`。整库移到别的盘，相对索引不变。
 - **路径安全**：符号链接和路径穿越经 resolve 后不得逃出库根。
 
