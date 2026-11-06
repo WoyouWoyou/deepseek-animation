@@ -14,7 +14,7 @@ description: 把中文文案、画风提示词和声音做成有表达、有统�
 ## 第 0 步：先定位项目、库、决定和阶段
 
 1. 在工作目录及上级目录找项目文件：`project.json`、`BRIEF.md`、`STATUS.md`、`DECISIONS.md`（读最新部分）、作品自己的 `task.json` 或任务卡。若有 `STOP.txt` 或明确的暂停记录，只做被允许的整理。
-2. **先确认 341 风格库在哪**。这是本技能唯一的外部依赖，不随包分发，每个人放的位置不同。解析顺序：`--root` > 环境变量 `FY_STYLE_LIBRARY_ROOT` > `adapters/style-library.config.json` 的 `root`。三者都没有时**问用户一次要路径，问完就停**：不遍历磁盘、不猜、不下载、不复制库原文。库根下应有 `风格提示词/`，可选 `示例/`。拿到路径后先跑一次 `python scripts/style_library.py build --root <库根>` 重建本地索引（随包的索引只是快照，未必是用你这份库建的），再检索。详见 [库接口](adapters/style-library.md)。首次使用或换库后先跑 `python scripts/doctor.py`：它直接告出库是否定位、索引是否过期、还缺什么。
+2. **先确认 341 风格库在哪**。解析顺序：`--root` > 环境变量 `FY_STYLE_LIBRARY_ROOT` > 包内自带的 `风格提示词/` > `adapters/style-library.config.json` 的 `root`。包内自带时直接可用；其余情况都没有时**问用户一次要路径，问完就停**：不遍历磁盘、不猜、不下载、不复制库原文。库根下应有 `风格提示词/`，可选 `示例/`。拿到路径后先跑一次 `python scripts/style_library.py build --root <库根>` 重建本地索引（随包的索引只是快照，未必是用你这份库建的），再检索。详见 [库接口](adapters/style-library.md)。首次使用或换库后先跑 `python scripts/doctor.py`：它直接告出库是否定位、索引是否过期、还缺什么。
 3. **每次必读** [默认约定与已有决定](modules/decisions.md)。里面是流程、画风、字体、背景、声音的条件式取舍，直接沿用，不要整表重问。用户当次的明确要求覆盖本文件；项目里若有更新的 `DECISIONS.md`，以较新的明确决定为准。
 4. 读 [流程与阶段](modules/workflow.md)，判定本次范围：
    - `card` 只交任务卡：写完整设计，不生成动画、静帧、音乐，不渲染、不安装。交付格式见 [任务卡规格](templates/task-card.md)。

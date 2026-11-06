@@ -81,7 +81,7 @@ def main():
         })
         report["actions"].append(
             "让用户给出 341 风格库根目录（库根下应有 风格提示词/）：传 --root，或设环境变量 "
-            "FY_STYLE_LIBRARY_ROOT，或写进 adapters/style-library.config.json 的 root。问一次就停，不要遍历磁盘。"
+            "FY_STYLE_LIBRARY_ROOT，或把库放进技能包根目录，或写进 adapters/style-library.config.json 的 root。问一次就停，不要遍历磁盘。"
         )
 
     if root:

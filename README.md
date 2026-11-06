@@ -16,12 +16,21 @@
 | `modules/` | 方法与判断：语义、风格、字体、背景、运动、镜头、风格分支、影像、产品、音乐、实现、交接、质量 |
 | `recipes/` | 具体配方：叙事、气势词、活的背景、群体翻面、镜头运动、转场、接缝、角色、纸偶、风格化、图片快闪、图表地图、音乐音效、UI 16 式 |
 | `implementations/` | 可复用源码：motion-core、canvas 契约、Remotion kit、相机/角色/转场/背景/中文文字/数据 UI、specimen 实验场 |
-| `adapters/` | 外部对接：341 风格库、Remotion、ACE-Step 本机音乐 |
+| `adapters/` | 外部对接：341 风格库接口、Remotion、ACE-Step 本机音乐 |
 | `templates/` | 任务卡、分镜表、音乐方案、返修表 |
 | `examples/` | 7 个完整任务卡与演练 |
-| `scripts/` | `doctor.py` 自检、`style_library.py` 风格库索引、`validate_task.py` 任务卡校验、`glyph_outline.py` 字形轮廓 |
+| `scripts/` | `doctor.py` 自检、`style_library.py` 风格库索引、`package.py` 打包、`validate_task.py` 任务卡校验、`glyph_outline.py` 字形轮廓 |
 | `tests/` | 逻辑、Canvas 契约、任务卡契约测试 |
 | `LICENSES/` | 第三方来源与许可 |
+
+## 两种发布包
+
+| 包 | 内容 | 适用 |
+| --- | --- | --- |
+| `deepseek-animation-<版本>-bundled.zip` | 技能 + `风格提示词/` 341 条原文 | 开箱即用，不依赖外部路径 |
+| `deepseek-animation-<版本>-index-only.zip` | 技能 + 索引快照，不含原文 | 已有自己的一份库，或受分发授权限制 |
+
+两种包解压后目录结构相同；`bundled` 包里的 `风格提示词/` 会被自动识别为库根，`index-only` 包则需要指定 `--root`。
 
 ## 安装
 
@@ -34,14 +43,21 @@ cp -r deepseek-animation ~/.dsh/skills/    # 按你的技能目录位置调整
 
 ## 第一次使用
 
-1. **341 风格库不随包分发**，需要你自己的库路径（库根下应有 `风格提示词/`，可选 `示例/`）
+1. 库的解析顺序：`--root` > `FY_STYLE_LIBRARY_ROOT` > 包内 `风格提示词/` > `adapters/style-library.config.json` 的 `root`。`bundled` 包直接可用；`index-only` 包需要自己的库路径（库根下应有 `风格提示词/`，可选 `示例/`）。
 2. 先跑一次自检：
 
    ```sh
-   python scripts/doctor.py --root /你的/风格库
+   python scripts/doctor.py                     # 内置库
+   python scripts/doctor.py --root /你的/风格库   # 外部库
    ```
 
 3. 之后按 `SKILL.md` 的创作顺序调用；只交任务卡时不生成任何媒体。
+
+## 打包
+
+```sh
+python scripts/package.py    # 输出到 dist/，按有无 风格提示词/ 自动选择 bundled 或 index-only
+```
 
 ## 要求
 
@@ -60,7 +76,7 @@ node tests/test_canvas_contract.mjs
 
 ## 下载
 
-- Release 附件 `deepseek-animation-v1.0.0.zip`
+- Release 附件按版本提供 `bundled` 与 `index-only` 两种 zip
 - 也可以直接用源码：整个目录复制即安装
 
 ## 许可

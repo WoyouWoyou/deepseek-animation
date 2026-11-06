@@ -1,4 +1,4 @@
-# 341 风格库原位接口
+# 341 风格库接口
 
 只用 Python 标准库，不安装、不下载。在技能包根目录下运行。脚本不复制原文，每次读取都校验 SHA。
 
@@ -8,11 +8,21 @@
 
 1. 命令行 `--root <目录>`；
 2. 环境变量 `FY_STYLE_LIBRARY_ROOT`；
-3. [`style-library.config.json`](style-library.config.json) 里的 `root`。包里这项默认留空，因为每个人把库放在哪里不同：第一次用时让用户给路径，写进这里、设环境变量、或每次传 `--root` 都行。
+3. 技能包根目录自带的 `风格提示词/`（发布包若内置了库，开箱即用）；
+4. [`style-library.config.json`](style-library.config.json) 里的 `root`。包里这项默认留空，因为每个人把库放在哪里不同。
 
-找不到时报 `MISSING_LIBRARY_ROOT` 或 `LIBRARY_ROOT_NOT_FOUND`，不会悄悄换成别的库。`--index` 默认是 `adapters/style-index.json`。
+包内没有库、前两项也没有时，会报 `MISSING_LIBRARY_ROOT` 或 `LIBRARY_ROOT_NOT_FOUND`，不会悄悄换成别的库。`--index` 默认是 `adapters/style-index.json`。
 
 随包的 `style-index.json` 是快照。如果 `get` 报 `STYLE_VERSION_CHANGED` 或 `MISSING_STYLE_FILE`，说明索引不是用你这份库建的：用 `build --root <库根>` 重建一次即可，索引只记相对路径和 SHA，不复制原文。
+
+## 打包
+
+```powershell
+python scripts/style_library.py build --root <库根>   # 重建 adapters/style-index.json
+python scripts/package.py                             # 输出 dist/deepseek-animation-<版本>-<bundled|index-only>.zip
+```
+
+包根有 `风格提示词/` 时按 `bundled` 打包（含原文，索引 `content_included=true`）；没有时按 `index-only` 打包，只带快照索引。库原文在 zip 内以 STORED 方式写入，避免二次压缩浪费时间与 CPU。
 
 ## 三种使用情况
 
@@ -76,4 +86,6 @@ python scripts/style_library.py get --query 蓝图
 
 把条目原文和适配解释分开记录：原提示词保留，适配另写在任务卡的风格卡里（见 [风格模块](../modules/style.md)）。示例故事、品牌、人物不要原样搬进本片。
 
-原分享库约定免费使用、免费分享，禁止包装成课程、付费 skills 或其他收费产品。本包只带定位索引，不带 341 原文和媒体。读许可不等于获得下载或再分发素材的授权。
+原分享库约定免费使用、免费分享，禁止包装成课程、付费 skills 或其他收费产品。
+
+`index-only` 包只带定位索引，不带 341 原文和媒体；`bundled` 包含原文，只应在库所有者授权或确认的范围内分发。读许可不等于获得下载或再分发素材的授权，第三方条目保留其原有许可。

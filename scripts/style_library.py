@@ -4,7 +4,8 @@ build indexes originals (it does not copy them); get returns their full verified
 list shows the catalog (category, one-line look, fit, keywords) for choosing candidates.
 Search is lexical candidate retrieval, never an aesthetic or semantic verdict.
 
-Library root resolution: --root, then env FY_STYLE_LIBRARY_ROOT, then "root" in
+Library root resolution: --root, then env FY_STYLE_LIBRARY_ROOT, then a bundled
+风格提示词/ directory inside the skill root, then "root" in
 adapters/style-library.config.json (relative paths are resolved against the skill root).
 Index defaults to adapters/style-index.json under the skill root.
 """
@@ -27,6 +28,8 @@ def resolve_root(cli_root):
     if cli_root: return cli_root, 'cli'
     env = os.environ.get('FY_STYLE_LIBRARY_ROOT')
     if env: return env, 'env:FY_STYLE_LIBRARY_ROOT'
+    bundled = SKILL_ROOT/'风格提示词'
+    if bundled.is_dir(): return str(SKILL_ROOT), 'bundled'
     if CONFIG_FILE.is_file():
         cfg = json.loads(CONFIG_FILE.read_text(encoding='utf-8-sig'))
         root = cfg.get('root')
@@ -68,7 +71,7 @@ def index_library(root):
     if len(set(ids))!=len(ids): raise ValueError('DUPLICATE_FORMAL_ID')
     version=digest('\n'.join(r['path']+'\t'+r['sha256'] for r in rows).encode('utf-8'))
     return {'schema_version':1,'library_version':version,'prompt_count':len(ids),'entries':rows,
-            'content_included':False,'search_is_semantic_judgment':False}
+            'content_included':root==SKILL_ROOT,'search_is_semantic_judgment':False}
 
 def safe_file(root, rel):
     p=(Path(root).resolve()/rel).resolve()
